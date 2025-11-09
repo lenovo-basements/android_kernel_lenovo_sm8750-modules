@@ -167,6 +167,21 @@ ifeq ($(CONFIG_TOUCHSCREEN_NT36XXX_I2C), y)
 	obj-$(CONFIG_MSM_TOUCH) += nt36xxx-i2c.o
 endif
 
+ifeq ($(CONFIG_TOUCHSCREEN_NT36XXX_SPI), y)
+	LINUX_INC += -include $(TOUCH_ROOT)/NT36XXX_SPI/nt36xxx.h
+	LINUX_INC += -include $(TOUCH_ROOT)/NT36XXX_SPI/nt36xxx_mem_map.h
+	LINUX_INC += -include $(TOUCH_ROOT)/NT36XXX_SPI/nt36xxx_mp_ctrlram.h
+
+	nvt_36xxx-y := \
+		 ./NT36XXX_SPI/nt36xxx.o \
+		 ./NT36XXX_SPI/nt36xxx_platform.o \
+		 ./NT36XXX_SPI/nt36xxx_fw_update.o \
+		 ./NT36XXX_SPI/nt36xxx_ext_proc.o \
+		 ./NT36XXX_SPI/nt36xxx_mp_ctrlram.o
+
+	obj-$(CONFIG_MSM_TOUCH) += nvt_36xxx.o
+endif
+
 ifeq ($(CONFIG_TOUCHSCREEN_GOODIX_BRL), y)
 	LINUX_INC += -include $(TOUCH_ROOT)/goodix_berlin_driver/goodix_ts_core.h
 
